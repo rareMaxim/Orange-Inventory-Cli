@@ -25,8 +25,8 @@ type
     AuthorizedCDFPrefix: string;
     Comments: string;
     Contact: string;
-    EstimatedSize: string;
-    Language: string;
+    EstimatedSize: Integer;
+    Language: Integer;
     ModifyPath: string;
     Readme: string;
     UninstallString: string;
@@ -110,17 +110,28 @@ begin
   if FRegistry.OpenKeyReadOnly(Format('%s\%s', [FAppRegPath, RegKey])) then
   begin
     try
-      Result.DisplayName := FRegistry.ReadString('DisplayName');
-      Result.DisplayVersion := FRegistry.ReadString('DisplayVersion');
-      Result.Publisher := FRegistry.ReadString('Publisher');
+      FRegistry.TryReadString('DisplayName', Result.DisplayName);
+      FRegistry.TryReadString('DisplayVersion', Result.DisplayVersion);
+      FRegistry.TryReadString('Publisher', Result.Publisher);
       FRegistry.TryReadInteger('VersionMinor', Result.VersionMinor);
       FRegistry.TryReadInteger('VersionMajor', Result.VersionMajor);
-//      FRegistry.TryReadString('Version', Result.Version);
-      Result.HelpLink := FRegistry.ReadString('HelpLink');
-      Result.HelpTelephone := FRegistry.ReadString('HelpTelephone');
-      Result.InstallDate := FRegistry.ReadString('InstallDate');
-      Result.InstallLocation := FRegistry.ReadString('InstallLocation');
-      Result.InstallSource := FRegistry.ReadString('InstallSource');
+      // FRegistry.TryReadString('Version', Result.Version);
+      FRegistry.TryReadString('HelpLink', Result.HelpLink);
+      FRegistry.TryReadString('HelpTelephone', Result.HelpTelephone);
+      FRegistry.TryReadString('InstallDate', Result.InstallDate);
+      FRegistry.TryReadString('InstallLocation', Result.InstallLocation);
+      FRegistry.TryReadString('InstallSource', Result.InstallSource);
+      FRegistry.TryReadString('URLInfoAbout', Result.URLInfoAbout);
+      FRegistry.TryReadString('URLUpdateInfo', Result.URLUpdateInfo);
+      FRegistry.TryReadString('AuthorizedCDFPrefix', Result.AuthorizedCDFPrefix);
+      FRegistry.TryReadString('Comments', Result.Comments);
+      FRegistry.TryReadString('Contact', Result.Contact);
+      FRegistry.TryReadInteger('EstimatedSize', Result.EstimatedSize);
+      FRegistry.TryReadInteger('Language', Result.Language);
+      FRegistry.TryReadString('ModifyPath', Result.ModifyPath);
+      FRegistry.TryReadString('Readme', Result.Readme);
+      FRegistry.TryReadString('UninstallString', Result.UninstallString);
+      FRegistry.TryReadString('SettingsIdentifier', Result.SettingsIdentifier);
       Result.Name := RegKey;
       Result.reg_path := FRegistry.CurrentPath;
     finally
